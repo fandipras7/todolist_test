@@ -17,7 +17,9 @@ export const mutations = {
 export const actions = {
     nuxtServerInit({ commit }, context) {
         commit('SET_IS_AUTH', context.app.$auth.$state.loggedIn)
-        var token = context.app.$auth.$storage._state['_token.local'].split(' ')[1]
-        commit('SET_API_TOKEN', token)
+        if (state.isAuth) {
+            var token = context.app.$auth.$storage._state['_token.local'].split(' ')[1]
+            commit('SET_API_TOKEN', token)
+        }
     }
 }

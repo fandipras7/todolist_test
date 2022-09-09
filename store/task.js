@@ -17,5 +17,27 @@ export const actions = {
                 resolve()
             })
         })
-    }
+    },
+
+    async addNewTask({dispatch}, payload) {
+       try {
+        await this.$axios.post('v1/activities', payload)
+        dispatch('getTask')
+        alert('Berhasil Menambah kegiatan')
+       } catch (error) {
+        alert('Gagal menambah data');
+       }
+
+    },
+
+    async deleteTask({dispatch}, payload) {
+        try {
+         await this.$axios.delete(`v1/activities/${payload}`)
+         dispatch('getTask')
+         alert('Berhasil Menghapus data')
+        } catch (error) {
+         alert('Gagal menghapus data');
+        }
+ 
+     }
 }

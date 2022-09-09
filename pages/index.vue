@@ -5,17 +5,19 @@
       <form class="mb-3">
         <div class="form-group mr-3 mb-0">
           <input v-model="task.title" type="text" class="form-control" id="formGroupExampleInput"
-            placeholder="Enter a task here" />
+            placeholder="Masukan Kegiatan" />
         </div>
         <div class="form-group mr-3 mb-0">
           <input v-model="task.description" type="text" class="form-control" id="formGroupExampleInput"
-            placeholder="Enter Description" />
+            placeholder="Tambahkan Desdripsi" />
         </div>
         <div class="form-group mr-3 mb-0">
-          <input v-model="task.date" type="date" min="1997-01-01" max="2030-12-31" class="form-control" id="formGroupExampleInput"
-            placeholder="Enter a Date" />
+          <input v-model="task.date" type="date" class="form-control" id="formGroupExampleInput" />
         </div>
-        <button type="button" class="btn btn-primary mt-3 mr-3">
+        <div class="form-group mr-3 mb-0">
+          <input v-model="task.time" type="time" class="form-control" id="formGroupExampleInput" />
+        </div>
+        <button type="button" @click="addData" class="btn btn-primary mt-3 mr-3">
           Save
         </button>
         <button @click="getTask" type="button" class="btn btn-warning mt-3">
@@ -46,7 +48,7 @@
                 <button class="btn btn-danger">
                   Edit
                 </button>
-                <button class="btn btn-success">
+                <button type="button" @click="deleteData(item)" class="btn btn-primary">
                   Delete
                 </button>
               </td>
@@ -64,8 +66,8 @@
 
 <style>
   .centerText {
-   margin-top: 250px;
-   margin-left: 300px;
+    margin-top: 250px;
+    margin-left: 300px;
   }
 </style>
 
@@ -73,12 +75,14 @@
   import { mapState } from 'vuex'
   import { mapActions } from 'vuex'
   export default {
-    async asyncData({store}) {
+    async asyncData({ store }) {
       await Promise.all([
         store.dispatch('task/getTask')
       ])
       return
     },
+
+
     name: 'IndexPage',
     computed: {
       ...mapState(['isAuth']),
@@ -89,14 +93,32 @@
     data() {
       return {
         task: {
-          name: '',
+          title: '',
+          description: '',
+          date: '',
+          time: ''
         },
         errors: null
       }
     },
 
     methods: {
-      ...mapActions('task', ['getTask'])
+      ...mapActions('task', ['getTask', 'addNewTask', 'deleteTask']),
+      addData() {
+        this.addNewTask(this.task)
+        // try {
+        //   const data = this.task;
+        //   await this.$axios.post('v1/activities', data);
+        //   alert('Berhasil Menambah data')
+        //   // console.log(typeof(data.time));
+        //   // console.log(data);
+        // } catch (error) {
+        //   alert('Gagal Menambah data')
+        // }
+      },
+      deleteData(item){
+        this.deleteTask(item.id)
+      }
     },
   }
 </script>
