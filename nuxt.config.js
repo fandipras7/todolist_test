@@ -35,7 +35,9 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/auth',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'vue-sweetalert2/nuxt'
+
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -49,8 +51,9 @@ export default {
       local: {
         endpoints: {
           login: { url: 'v1/auth/login', method: 'post', propertyName: 'token' },
-          user: { url: 'v1/activities', method: 'get', propertyName: 'data' },
-          logout: false
+          // user: { url: 'v1/activities', method: 'get', propertyName: 'data' },
+          user: false,
+          logout: { url: 'v1/auth/logout', method: 'post'}
         }
       }
     }

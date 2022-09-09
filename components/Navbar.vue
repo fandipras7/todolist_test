@@ -2,18 +2,29 @@
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand"><h3>Todo App</h3></a>
-      <nuxt-link class="nav-link" to="/login"> <button class="btn btn-outline-success btn-sm "
-        type="submit">Logout</button></nuxt-link>
-      <!-- <div class="d-flex">
-        
-        <nuxt-link class="nav-link" to="/register"> <button class="btn btn-outline-success btn-sm "
-            type="submit">Signup</button></nuxt-link>
-      </div> -->
+      <a class="navbar-brand">
+        <h3>Todo App</h3>
+      </a>
+      <button v-if="isAuth" @click="onLogout" class="btn btn-outline-success btn-sm " type="submit">Logout</button>
+
+      <nuxt-link v-else class="nav-link" to="/loginAlter"> <button class="btn btn-outline-success btn-sm "
+          type="submit">Login</button></nuxt-link>
     </div>
   </nav>
 </template>
 
 <script>
-  export default {}
+  import { mapState } from 'vuex';
+  export default {
+    computed: {
+      ...mapState(['isAuth']),
+    },
+
+    methods: {
+     async onLogout() {
+         await this.$auth.logout()
+         this.$router.push('/loginAlter')
+      }
+    },
+  }
 </script>

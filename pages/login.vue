@@ -60,7 +60,8 @@
           this.$router.push('/');
 
         } catch (e) {
-          this.errors = e.response.data.errors
+          // this.errors = e.response.data.errors
+          console.log(e);
         }
       }
     }
