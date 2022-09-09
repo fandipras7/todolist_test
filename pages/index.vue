@@ -2,18 +2,26 @@
   <div>
     <Navbar />
     <div v-if="isAuth" class="container mt-5">
-      <div class="d-flex align-items-center mb-3">
+      <form class="mb-3">
         <div class="form-group mr-3 mb-0">
-          <input v-model="task.name" type="text" class="form-control" id="formGroupExampleInput"
+          <input v-model="task.title" type="text" class="form-control" id="formGroupExampleInput"
             placeholder="Enter a task here" />
         </div>
-        <button type="button" class="btn btn-primary mr-3">
+        <div class="form-group mr-3 mb-0">
+          <input v-model="task.description" type="text" class="form-control" id="formGroupExampleInput"
+            placeholder="Enter Description" />
+        </div>
+        <div class="form-group mr-3 mb-0">
+          <input v-model="task.date" type="date" min="1997-01-01" max="2030-12-31" class="form-control" id="formGroupExampleInput"
+            placeholder="Enter a Date" />
+        </div>
+        <button type="button" class="btn btn-primary mt-3 mr-3">
           Save
         </button>
-        <button type="button" class="btn btn-warning">
+        <button @click="getTask" type="button" class="btn btn-warning mt-3">
           Get Tasks
         </button>
-      </div>
+      </form>
       <div class="table-wrapper">
         <table class="table table-hover table-bordered">
           <thead>
@@ -26,20 +34,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>test</td>
+            <tr v-for="item in tasks">
+              <td>{{item.id}}</td>
               <td>
-                cek
+                {{item.title}}
               </td>
-              <td>34</td>
-              <td>34</td>
-              <td>35</td>
+              <td>{{item.description}}</td>
+              <td>{{item.date}}</td>
+              <td>{{item.time}}</td>
               <td>
                 <button class="btn btn-danger">
-                  Delete
+                  Edit
                 </button>
                 <button class="btn btn-success">
-                  Finished
+                  Delete
                 </button>
               </td>
             </tr>
@@ -63,10 +71,20 @@
 
 <script>
   import { mapState } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
+    async asyncData({store}) {
+      await Promise.all([
+        store.dispatch('task/getTask')
+      ])
+      return
+    },
     name: 'IndexPage',
     computed: {
-      ...mapState(['isAuth'])
+      ...mapState(['isAuth']),
+      ...mapState('task', {
+        tasks: state => state.task
+      })
     },
     data() {
       return {
@@ -75,6 +93,10 @@
         },
         errors: null
       }
+    },
+
+    methods: {
+      ...mapActions('task', ['getTask'])
     },
   }
 </script>
