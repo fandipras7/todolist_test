@@ -7,7 +7,7 @@
       </a>
       <button v-if="isAuth" @click="onLogout" class="btn btn-outline-success btn-sm " type="submit">Logout</button>
 
-      <nuxt-link v-else class="nav-link" to="/loginAlter"> <button class="btn btn-outline-success btn-sm "
+      <nuxt-link v-else class="nav-link" to="/login"> <button class="btn btn-outline-success btn-sm "
           type="submit">Login</button></nuxt-link>
     </div>
   </nav>
@@ -23,7 +23,7 @@
     methods: {
      async onLogout() {
          await this.$auth.logout()
-         this.$router.push('/loginAlter')
+         this.$router.push('/login')
       }
     },
   }

@@ -76,11 +76,12 @@ export default {
           password: this.password,
           confirm_password: this.confirmpassword
         }) 
-
-      this.$router.push('/loginAlter')
+        alert('register berhasil')
+      this.$router.push('/login')
       
       } catch (e) {
-        this.errors = e.response.data.errors
+        console.log(e.response);
+        alert(e.response.data.message)
       }
     }
   }

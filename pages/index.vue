@@ -9,7 +9,7 @@
         </div>
         <div class="form-group mr-3 mb-0">
           <input v-model="task.description" type="text" class="form-control" id="formGroupExampleInput"
-            placeholder="Tambahkan Desdripsi" />
+            placeholder="Tambahkan Deskripsi" />
         </div>
         <div class="form-group mr-3 mb-0">
           <input v-model="task.date" type="date" class="form-control" id="formGroupExampleInput" />
@@ -26,13 +26,14 @@
       </form>
       <div class="table-wrapper">
         <table class="table table-hover table-bordered">
-          <thead>
+          <thead class="table-dark">
             <tr>
-              <th>No</th>
+              <th >Id</th>
               <th>Title</th>
               <th>Description</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -75,10 +76,14 @@
   import { mapState } from 'vuex'
   import { mapActions } from 'vuex'
   export default {
+
     async asyncData({ store }) {
-      await Promise.all([
-        store.dispatch('task/getTask')
-      ])
+      if (store.state.auth.loggedIn) {
+        await Promise.all([
+          store.dispatch('task/getTask')
+        ])
+        return
+      }
       return
     },
 
@@ -106,6 +111,7 @@
       ...mapActions('task', ['getTask', 'addNewTask', 'deleteTask']),
       addData() {
         this.addNewTask(this.task)
+        this.task = {};
         // try {
         //   const data = this.task;
         //   await this.$axios.post('v1/activities', data);
@@ -116,7 +122,7 @@
         //   alert('Gagal Menambah data')
         // }
       },
-      deleteData(item){
+      deleteData(item) {
         this.deleteTask(item.id)
       }
     },

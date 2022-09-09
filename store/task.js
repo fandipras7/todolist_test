@@ -9,7 +9,7 @@ export const mutations = {
 }
 
 export const actions = {
-    getTask({commit}) {
+    getTask({commit, dispatch}) {
         return new Promise((resolve, reject) =>{
             this.$axios.get('v1/activities').then((response)=>{
                 // console.log(response.data);

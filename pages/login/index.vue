@@ -28,7 +28,7 @@
                                             class="btn btn-primary">Login</button>
                                     </form>
                                     <div class="text-center mt-2">
-                                        <nuxt-link to="/registerAlter">Create Account</nuxt-link>
+                                        <nuxt-link to="/register">Create Account</nuxt-link>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,10 @@
                     }
                 }).then(() => {
                     this.SET_IS_AUTH(true)
+                    alert('Welcome')
                     this.$router.push('/')
+                }).catch((e)=>{
+                    alert(e.response.data.message)
                 })
             }
         }
