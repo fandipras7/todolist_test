@@ -28,7 +28,7 @@
         <table class="table table-hover table-bordered">
           <thead class="table-dark">
             <tr>
-              <th >Id</th>
+              <th>Id</th>
               <th>Title</th>
               <th>Description</th>
               <th>Date</th>
@@ -46,9 +46,9 @@
               <td>{{item.date}}</td>
               <td>{{item.time}}</td>
               <td>
-                <button class="btn btn-danger">
-                  Edit
-                </button>
+                <nuxt-link :to="{name: 'edit-id', params: {id: item.id}}"> <button class="btn btn-danger">
+                    Edit
+                  </button></nuxt-link>
                 <button type="button" @click="deleteData(item)" class="btn btn-primary">
                   Delete
                 </button>

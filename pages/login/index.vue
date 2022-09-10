@@ -28,7 +28,7 @@
                                             class="btn btn-primary">Login</button>
                                     </form>
                                     <div class="text-center mt-2">
-                                        <nuxt-link to="/register">Create Account</nuxt-link>
+                                        <nuxt-link :to="{name: 'register'}">Create Account</nuxt-link>
                                     </div>
                                 </div>
                             </div>
